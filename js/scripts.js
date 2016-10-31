@@ -1,35 +1,32 @@
-function Place(place, landmarks, timeOfYear, notes) {
-  this.place = place;
-  this.landmarks = landmarks;
-  this.timeOfYear = timeOfYear;
-  this.notes = notes;
+function Item(item, priority, completion) {
+  this.item = item;
+  this.priority = priority;
+  this.completion = completion;
 }
 
+// Item.prototype.changeCompletion = function() {
+//   this.completion = "complete";
+//   return this.item + this.completion;
+// }
+
 $(function() {
-  $("form#addPlace").submit(function(event) {
+  $("#toDo").submit(function(event) {
     event.preventDefault();
 
-    var inputtedLocation = $("input#location").val();
-    var inputtedLandmarks = $("input#landmarks").val();
-    var inputtedTimeOfYear = $("input#timeOfYear").val();
-    var inputtedNotes = $("input#notes").val();
+    var inputtedItem = $("#item").val();
+    var inputtedPriority = $("#priority").val();
+    var completion = "incomplete";
 
-    var newPlace = new Place(inputtedLocation, inputtedLandmarks, inputtedTimeOfYear, inputtedNotes);
+    var newItem =  new Item(inputtedItem, inputtedPriority, completion);
 
-    $(".locationsList ul").append("<li>" + newPlace.place + "</li>");
+    $("#output ul").append("<li>" + newItem.item + " - " + "<span class=\"priority\">" + newItem.priority + "</span>" + " " + newItem.completion + "</li>");
 
-    $(".locationsList li").last().click(function(){
-      $("#showLocation").show();
-      $("#showLocation h2").text(newPlace.place);
-      $(".showLandmark").text(newPlace.landmarks);
-      $(".showTime").text(newPlace.timeOfYear);
-      $('.showNotes').text(newPlace.notes);
-    });
+    console.log(newItem);
 
-    $("input#location").val("");
-    $("input#landmarks").val("");
-    $("input#timeOfYear").val("");
-    $("input#notes").val("");
+    $("#output li").last().click(function() {
+      $(this).empty();
+      $(this).append("<del>" + "<li>" + newItem.item + " - " + "<span class=\"priority\">" + newItem.priority + "</span>" + " " + newItem.completion + "</li>" + "</del>");
+    })
 
   });
 });
