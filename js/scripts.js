@@ -1,5 +1,5 @@
-function Place(locations, landmarks, timeOfYear, notes) {
-  this.locations = location;
+function Place(place, landmarks, timeOfYear, notes) {
+  this.place = place;
   this.landmarks = landmarks;
   this.timeOfYear = timeOfYear;
   this.notes = notes;
@@ -16,14 +16,20 @@ $(function() {
 
     var newPlace = new Place(inputtedLocation, inputtedLandmarks, inputtedTimeOfYear, inputtedNotes);
 
-    $("#output").append(
-      "<li>" + inputtedLocation + "</li>" +
-      "<li>" + inputtedLandmarks + "</li>" +
-      "<li>" + inputtedTimeOfYear + "</li>" +
-      "<li>" + inputtedNotes + "</li>"
-    );
+    $(".locationsList ul").append("<li>" + newPlace.place + "</li>");
 
+    $(".locationsList li").last().click(function(){
+      $("#showLocation").show();
+      $("#showLocation h2").text(newPlace.place);
+      $(".showLandmark").text(newPlace.landmarks);
+      $(".showTime").text(newPlace.timeOfYear);
+      $('.showNotes').text(newPlace.notes);
+    });
 
+    $("input#location").val("");
+    $("input#landmarks").val("");
+    $("input#timeOfYear").val("");
+    $("input#notes").val("");
 
-  })
-})
+  });
+});
